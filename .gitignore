@@ -1,9 +1,6 @@
-#folders
-.idea/
-
 # Jupyter Notebook
 .ipynb_checkpoints
 
 # Environments
-venv
+venv/
 
