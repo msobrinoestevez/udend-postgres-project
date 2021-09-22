@@ -2,5 +2,9 @@
 .ipynb_checkpoints
 
 # Environments
-venv/
+venv
+
+.idea
+
+__pycache__
 
