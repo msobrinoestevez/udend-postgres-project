@@ -5,6 +5,16 @@ import pandas as pd
 from sql_queries import *
 
 def process_song_file(cur, filepath):
+    """
+       Description: Read song metadata from a JSON `filepath` file and insert the data into
+       song and artist tables based on different columns.
+
+       Arguments:
+            cur : psycopg2.cursor
+                cursor obtained from active session to execute PostgreSQL commands.
+            filepath : str or path object
+                path to the song file.
+    """
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -18,6 +28,17 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+        Description: Read logs data from a JSON `filepath` file, filter the logs to include
+        only useractivity that has level == 'NextSong', and insert the data into
+        users, time, and songplay tables.
+
+        Arguments:
+            cur : psycopg2.cursor
+                cursor obtained from active session to execute PostgreSQL commands.
+            filepath : str or path object
+                path to the song file.
+    """
     # open log file
     df = pd.read_json(filepath, lines= True)
 
@@ -61,6 +82,23 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+
+    """
+        Description: This is the final procedure of the script.
+            1. First we get all the files matching extension from the directory.
+            2. Gets the number of the total files found.
+            3. Then it iterates over the files and finally all the data is processed to our connection.
+
+        Arguments:
+            cur : psycopg2.cursor
+                cursor obtained from active session to execute PostgreSQL commands.
+            filepath : str or path object
+                path to the song file.
+            conn:
+                connection to the database
+            func:
+                the function that is being used to process the data
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
